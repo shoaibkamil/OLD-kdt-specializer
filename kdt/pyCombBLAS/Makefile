@@ -1,5 +1,5 @@
 INCDIR = $(HOME)
-INCADD = -I$(INCDIR) -I/usr/include/python2.7
+INCADD = -I$(INCDIR) -I/usr/include/python2.6
 COMBBLAS = ../../CombBLAS
 
 # notes for configure:

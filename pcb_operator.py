@@ -1,9 +1,9 @@
 import inspect
-import asplib.asp.codegen.python_ast as ast
-import asplib.asp.codegen.cpp_ast as cpp_ast
-import asplib.asp.codegen.ast_tools as ast_tools
+import asp.codegen.python_ast as ast
+import asp.codegen.cpp_ast as cpp_ast
+import asp.codegen.ast_tools as ast_tools
 import codepy.cgen
-import asplib.asp.jit.asp_module as asp_module
+import asp.jit.asp_module as asp_module
 from collections import namedtuple
 
 def struct_prototype(struct):
@@ -84,11 +84,13 @@ class CMakeModule(object):
         if self.namespace is not None:
             self.mod_body = [Namespace(self.namespace, cpp_ast.Block(self.mod_body))]
 
+        print "Got to 1"
         self.preamble += [cpp_ast.Include(self.temp_dir+self.name+".h", system=False)]
         for include in self.include_files:
             self.preamble += [cpp_ast.Include(include, system=False)]
-        
+        print "Got to 2"
         source += self.preamble + [codepy.cgen.Line()] + self.mod_body
+        print "Got to 3"
         return codepy.cgen.Module(source)
 
     def generate_header(self):
@@ -149,9 +151,9 @@ class PcbOperator(object):
     def __init__(self, operators):
         # check for 'op' method
         self.operators = operators
-        temp_path = "/home/harper/Documents/Work/SEJITS/temp/"
-        makefile_path = "/home/harper/Documents/Work/SEJITS/pyCombBLAS/trunk/kdt/pyCombBLAS"
-        include_files = ["/home/harper/Documents/Work/SEJITS/pyCombBLAS/trunk/kdt/pyCombBLAS/pyOperations.h"]
+        temp_path = "/tmp/" #"/home/harper/Documents/Work/SEJITS/temp/"
+        makefile_path = "/vagrant/KDTSpecializer/kdt/pyCombBLAS"
+        include_files = ["/vagrant/KDTSpecializer/kdt/pyCombBLAS/pyOperations.h"]
         mod = CMakeModule(temp_path, makefile_path, namespace="op", include_files=include_files)
         
         for operator in self.operators:
