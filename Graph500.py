@@ -215,7 +215,8 @@ for start in starts:
 	if (useEWise):
 		parents = bfsTreeEWise(G, start, sym=True)
 	else:
-		parents = G.bfsTree(start, sym=True)
+                print "Calling bfs"
+		parents = G.bfsTree(start, sym=True, optype=2)
 	
 	itertime = time.time() - before
 	
